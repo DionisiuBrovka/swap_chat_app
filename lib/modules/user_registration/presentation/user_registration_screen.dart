@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swap_chat_app/core/utils/widgets/background_gradient.dart';
 
 class UserRegistrationScreen extends StatelessWidget {
   const UserRegistrationScreen({super.key});
@@ -6,11 +7,9 @@ class UserRegistrationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: DecoratedBox(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/back.jpg"), fit: BoxFit.cover)),
-      child: SafeArea(
+        body: Stack(children: [
+      BackgroundGradient(),
+      SafeArea(
         child: Center(
           child: Card(
             elevation: 12,
@@ -107,7 +106,7 @@ class UserRegistrationScreen extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    ]));
   }
 }
 

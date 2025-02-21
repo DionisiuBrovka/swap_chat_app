@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:swap_chat_app/core/utils/widgets/background_gradient.dart';
 import 'package:swap_chat_app/modules/user_auth/logic/user_auth_logic.dart';
+import 'package:swap_chat_app/modules/user_auth/presentation/widgets/app_logo_title.dart';
 
 class UserAuthScreen extends StatelessWidget {
   const UserAuthScreen({super.key});
@@ -9,12 +10,9 @@ class UserAuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DecoratedBox(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/back.jpg"),
-                fit: BoxFit.cover)),
-        child: SafeArea(
+      body: Stack(children: [
+        BackgroundGradient(),
+        SafeArea(
           child: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -22,26 +20,7 @@ class UserAuthScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 spacing: 16,
                 children: [
-                  SizedBox(
-                    width: 270,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          "SwapChat",
-                          style: Theme.of(context).textTheme.displayMedium,
-                        ),
-                        SvgPicture.asset(
-                          "assets/images/icon.svg",
-                          width: 56,
-                          height: 56,
-                        ),
-                        SizedBox(
-                          width: 4,
-                        )
-                      ],
-                    ),
-                  ),
+                  AppLogoTitle(),
                   Card(
                     elevation: 12,
                     child: Padding(
@@ -120,7 +99,7 @@ class UserAuthScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
+      ]),
     );
   }
 }

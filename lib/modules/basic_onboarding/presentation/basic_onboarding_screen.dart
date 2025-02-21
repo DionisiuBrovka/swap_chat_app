@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding/onboarding.dart';
+import 'package:swap_chat_app/core/utils/widgets/background_gradient.dart';
 import 'package:swap_chat_app/modules/main_page/presentation/main_page_screen.dart';
 
 class BasicOnboardingScreen extends StatelessWidget {
@@ -8,102 +9,99 @@ class BasicOnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DecoratedBox(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/back.jpg"),
-                  fit: BoxFit.cover)),
-          child: Center(
-              child: Onboarding(
-                  animationInMilliseconds: 200,
-                  startIndex: 0,
-                  buildFooter: (context, netDragDistance, pagesLength,
-                      currentIndex, setIndex, slideDirection) {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(24.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AnimatedOpacity(
-                              opacity: currentIndex != 0 ? 1 : 0,
-                              duration: Durations.medium1,
-                              child: FilledButton.tonal(
-                                onPressed: currentIndex != 0
-                                    ? () {
-                                        setIndex(currentIndex - 1);
-                                      }
-                                    : null,
-                                child: Text("Назад"),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  0, 0, pagesLength * 10, 0),
-                              child: Indicator(
-                                  painter: CirclePainter(
-                                      activePainter: Paint()
-                                        ..color = Colors.white,
-                                      inactivePainter: Paint()
-                                        ..color = Colors.black,
-                                      space: 10,
-                                      pagesLength: pagesLength,
-                                      netDragPercent: netDragDistance,
-                                      currentPageIndex: currentIndex,
-                                      slideDirection: slideDirection)),
-                            ),
-                            FilledButton(
-                              style: currentIndex != pagesLength - 1
-                                  ? FilledButton.styleFrom(
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .primaryContainer,
-                                      foregroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimaryContainer,
-                                    )
-                                  : FilledButton.styleFrom(
-                                      backgroundColor:
-                                          Theme.of(context).colorScheme.primary,
-                                      foregroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                    ),
-                              onPressed: currentIndex == pagesLength - 1
+      body: Stack(children: [
+        BackgroundGradient(),
+        Center(
+            child: Onboarding(
+                animationInMilliseconds: 200,
+                startIndex: 0,
+                buildFooter: (context, netDragDistance, pagesLength,
+                    currentIndex, setIndex, slideDirection) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AnimatedOpacity(
+                            opacity: currentIndex != 0 ? 1 : 0,
+                            duration: Durations.medium1,
+                            child: FilledButton.tonal(
+                              onPressed: currentIndex != 0
                                   ? () {
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MainPageScreen(),
-                                          ));
+                                      setIndex(currentIndex - 1);
                                     }
-                                  : () {
-                                      setIndex(currentIndex + 1);
-                                    },
-                              child: Text(currentIndex == pagesLength - 1
-                                  ? "Начать"
-                                  : "Далее"),
+                                  : null,
+                              child: Text("Назад"),
                             ),
-                          ],
-                        ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsets.fromLTRB(0, 0, pagesLength * 10, 0),
+                            child: Indicator(
+                                painter: CirclePainter(
+                                    activePainter: Paint()
+                                      ..color = Colors.white,
+                                    inactivePainter: Paint()
+                                      ..color = Colors.black,
+                                    space: 10,
+                                    pagesLength: pagesLength,
+                                    netDragPercent: netDragDistance,
+                                    currentPageIndex: currentIndex,
+                                    slideDirection: slideDirection)),
+                          ),
+                          FilledButton(
+                            style: currentIndex != pagesLength - 1
+                                ? FilledButton.styleFrom(
+                                    backgroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer,
+                                    foregroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer,
+                                  )
+                                : FilledButton.styleFrom(
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.primary,
+                                    foregroundColor:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                            onPressed: currentIndex == pagesLength - 1
+                                ? () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              MainPageScreen(),
+                                        ));
+                                  }
+                                : () {
+                                    setIndex(currentIndex + 1);
+                                  },
+                            child: Text(currentIndex == pagesLength - 1
+                                ? "Начать"
+                                : "Далее"),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                  swipeableBody: [
-                OnboardingCard(
-                  headerText: "Header 1",
-                ),
-                OnboardingCard(
-                  headerText: "Header 2",
-                ),
-                OnboardingCard(
-                  headerText: "Header 3",
-                ),
-                OnboardingCard(
-                  headerText: "Header 4",
-                ),
-              ]))),
+                    ),
+                  );
+                },
+                swipeableBody: [
+              OnboardingCard(
+                headerText: "Header 1",
+              ),
+              OnboardingCard(
+                headerText: "Header 2",
+              ),
+              OnboardingCard(
+                headerText: "Header 3",
+              ),
+              OnboardingCard(
+                headerText: "Header 4",
+              ),
+            ])),
+      ]),
     );
   }
 }
