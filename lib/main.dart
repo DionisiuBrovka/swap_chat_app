@@ -11,10 +11,14 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData.from(
-            colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.deepPurple, brightness: Brightness.dark)),
-        debugShowCheckedModeBanner: false,
-        home: UserAuthScreen());
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          brightness: Brightness.dark,
+        ),
+      ),
+      debugShowCheckedModeBanner: false,
+      home: UserAuthScreen(),
+    );
   }
 }
